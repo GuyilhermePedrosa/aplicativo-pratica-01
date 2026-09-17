@@ -1,24 +1,13 @@
 {
   "expo": {
-    "name": "meu-primeiro-app",
-    "slug": "meu-primeiro-app",
+    "name": "Prática 03 - INF204",
+    "slug": "pratica-03",
     "version": "1.0.0",
+    "description": "Cartões de perfil interativos e jogo da velha desenvolvidos em React Native.",
     "orientation": "portrait",
-    "icon": "./assets/icon.png",
     "userInterfaceStyle": "light",
     "ios": {
       "supportsTablet": true
-    },
-    "android": {
-      "adaptiveIcon": {
-        "backgroundColor": "#E6F4FE",
-        "foregroundImage": "./assets/android-icon-foreground.png",
-        "backgroundImage": "./assets/android-icon-background.png",
-        "monochromeImage": "./assets/android-icon-monochrome.png"
-      }
-    },
-    "web": {
-      "favicon": "./assets/favicon.png"
     }
   }
 }
