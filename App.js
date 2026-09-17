@@ -1,98 +1,125 @@
-import React, { useState } from "react";
-import { Text, View, StyleSheet, TouchableOpacity } from "react-native";
+import { StatusBar } from "expo-status-bar";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 
-export default function Contador() {
-  const [contagem, setContagem] = useState(0);
+import CartaoPerfil from "./CartaoPerfil";
+import JogoDaVelha from "./JogoDaVelha";
 
-  const incrementar = () => setContagem(contagem + 1);
+const perfis = [
+  {
+    id: 1,
+    nome: "Guilherme Pedrosa",
+    profissao: "Desenvolvedor Mobile",
+    avatar:
+      "https://ui-avatars.com/api/?name=Guilherme+Pedrosa&background=0064A0&color=FFFFFF&size=256",
+  },
+  {
+    id: 2,
+    nome: "Hugo Marcondes",
+    profissao: "Designer de Interfaces",
+    avatar:
+      "https://ui-avatars.com/api/?name=Hugo+Marcondes&background=14325A&color=FFFFFF&size=256",
+    seguindo: true,
+  },
+  {
+    id: 3,
+    nome: "João Vitor",
+    profissao: "Professor de Desenvolvimento Mobile",
+    avatar:
+      "https://ui-avatars.com/api/?name=Joao+Vitor&background=E0734D&color=FFFFFF&size=256",
+  },
+];
 
-  const decrementar = () => {
-    // Garante que o contador não fique negativo
-    if (contagem > 0) {
-      setContagem(contagem - 1);
-    }
-  };
-
-  const zerar = () => setContagem(0);
-
+export default function App() {
   return (
-    <View style={styles.container}>
-      <Text style={styles.titulo}>Contagem Atual:</Text>
-      <Text style={styles.numero}>{contagem}</Text>
+    <View style={styles.tela}>
+      <StatusBar style="dark" />
 
-      <View style={styles.botoesContainer}>
-        <TouchableOpacity
-          style={[styles.botao, styles.botaoIncrementar]}
-          onPress={incrementar}
-        >
-          <Text style={styles.textoBotao}>+ Incrementar</Text>
-        </TouchableOpacity>
+      <ScrollView
+        contentContainerStyle={styles.conteudo}
+        keyboardShouldPersistTaps="handled"
+        showsVerticalScrollIndicator={false}
+      >
+        <View style={styles.cabecalho}>
+          <Text style={styles.subtitulo}>INF204 • Prática 03</Text>
+          <Text style={styles.titulo}>Perfis da comunidade</Text>
+          <Text style={styles.descricao}>
+            Conheça os participantes e atualize os nomes diretamente nos cartões.
+          </Text>
+        </View>
 
-        <TouchableOpacity
-          style={[styles.botao, styles.botaoDecrementar]}
-          onPress={decrementar}
-        >
-          <Text style={styles.textoBotao}>- Decrementar</Text>
-        </TouchableOpacity>
+        <View style={styles.listaPerfis}>
+          {perfis.map((perfil) => (
+            <CartaoPerfil
+              key={perfil.id}
+              avatar={perfil.avatar}
+              nomeInicial={perfil.nome}
+              profissao={perfil.profissao}
+              seguindoInicial={perfil.seguindo}
+            />
+          ))}
+        </View>
 
-        <TouchableOpacity
-          style={[styles.botao, styles.botaoZerar]}
-          onPress={zerar}
-        >
-          <Text style={styles.textoBotao}>Zerar</Text>
-        </TouchableOpacity>
-      </View>
+        <View style={styles.areaJogo}>
+          <JogoDaVelha />
+        </View>
+
+        <Text style={styles.rodape}>
+          INF204 • Desenvolvimento para Dispositivos Móveis
+        </Text>
+      </ScrollView>
     </View>
   );
 }
 
 const styles = StyleSheet.create({
-  container: {
+  tela: {
     flex: 1,
-    justifyContent: "center",
+    backgroundColor: "#EEF3F8",
+  },
+  conteudo: {
     alignItems: "center",
-    backgroundColor: "#ffffff",
-    padding: 20,
+    paddingHorizontal: 20,
+    paddingTop: 64,
+    paddingBottom: 48,
+  },
+  cabecalho: {
+    width: "100%",
+    maxWidth: 440,
+    marginBottom: 24,
+  },
+  subtitulo: {
+    color: "#0064A0",
+    fontSize: 13,
+    fontWeight: "700",
+    letterSpacing: 1,
+    marginBottom: 8,
+    textTransform: "uppercase",
   },
   titulo: {
-    fontSize: 20,
-    color: "#333333",
+    color: "#14325A",
+    fontSize: 30,
+    fontWeight: "800",
+    marginBottom: 8,
   },
-  numero: {
-    fontSize: 48,
-    fontWeight: "bold",
-    color: "#4caf50",
-    marginBottom: 30,
-  },
-  botoesContainer: {
-    width: "100%",
-    alignItems: "center",
-  },
-  botao: {
-    width: "80%",
-    paddingVertical: 14,
-    borderRadius: 25,
-    marginVertical: 8,
-    alignItems: "center",
-    elevation: 3,
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 2 },
-    shadowOpacity: 0.2,
-    shadowRadius: 3,
-  },
-  botaoIncrementar: {
-    backgroundColor: "#4caf50",
-  },
-  botaoDecrementar: {
-    backgroundColor: "#e53935",
-  },
-  botaoZerar: {
-    backgroundColor: "#757575",
-  },
-  textoBotao: {
-    color: "#ffffff",
+  descricao: {
+    color: "#5B6878",
     fontSize: 16,
-    fontWeight: "bold",
+    lineHeight: 23,
+  },
+  listaPerfis: {
+    alignItems: "center",
+    gap: 18,
+    width: "100%",
+  },
+  areaJogo: {
+    marginTop: 32,
+    maxWidth: 440,
+    width: "100%",
+  },
+  rodape: {
+    color: "#7B8794",
+    fontSize: 12,
+    marginTop: 28,
+    textAlign: "center",
   },
 });
-
